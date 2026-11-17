@@ -1,140 +1,50 @@
+const MAIL="gabrielmukamba7@gmail.com";
+const PAGES=[["index.html","Home"],["mission.html","Mission"],["innovation.html","Innovation Hub"],["standards.html","Standards"],["feedback.html","Student Voice"],["university.html","University"],["designer.html","Designer"],["contact.html","Contact"]];
+const here=location.pathname.split("/").pop()||"index.html";
+const SOCIAL=`<div class="social-pills" style="margin-top:14px">
+<a href="https://github.com/gabrielmukamba" target="_blank" rel="noopener">GitHub</a>
+<a href="https://www.linkedin.com/in/gabriel-mukamba-80368241a" target="_blank" rel="noopener">LinkedIn</a>
+<a href="https://www.instagram.com/mukambagabriel" target="_blank" rel="noopener">Instagram</a>
+<a href="https://www.facebook.com/profile.php?id=61573141967189" target="_blank" rel="noopener">Facebook</a>
+<a href="https://www.tiktok.com/@gabrielmukamba3" target="_blank" rel="noopener">TikTok</a>
+<a href="https://www.youtube.com/@Gabrielmukamba3" target="_blank" rel="noopener">YouTube</a></div>`;
+document.body.insertAdjacentHTML("afterbegin",`<header class="site-header"><nav class="navbar">
+<a class="brand" href="index.html"><img src="images/iuea-logo.png" alt="IUEA logo" onerror="this.style.display='none'">IUEA EQUAL</a>
+<button class="menu-btn" aria-label="Menu" onclick="document.querySelector('.links').classList.toggle('open')">Menu</button>
+<ul class="links">${PAGES.map(([h,t])=>`<li><a href="${h}" class="${h===here?"active":""}">${t}</a></li>`).join("")}
+<li><a class="join" href="innovation.html#submit">Submit Project</a></li></ul></nav></header>`);
+document.body.insertAdjacentHTML("beforeend",`<footer class="site-footer"><div class="wrap">
+<div class="foot-cta"><img src="images/iuea-logo.png" alt="IUEA logo" onerror="this.style.display='none'"><p>IUEA EQUAL is an independent student initiative. It is not an official IUEA project.</p>
+<a class="btn alt" href="feedback.html">Share feedback</a><a class="btn ghost" href="https://gabrielmukamba.github.io/iuea-connect/" target="_blank" rel="noopener">IUEA Connect</a></div>
+<div class="foot-grid"><div><h4>Quick links</h4><ul>
+<li><a href="mission.html">Mission</a></li><li><a href="innovation.html">Innovation Hub</a></li><li><a href="standards.html">Standards</a></li><li><a href="feedback.html">Student Voice</a></li><li><a href="university.html">The University</a></li><li><a href="designer.html">About the designer</a></li><li><a href="privacy.html">Privacy</a></li><li><a href="https://iuea.ac.ug" target="_blank" rel="noopener">IUEA website</a></li></ul></div>
+<div><h4>Contact</h4><address><a href="mailto:${MAIL}">${MAIL}</a><a href="https://wa.me/256727440898" target="_blank" rel="noopener">WhatsApp +256 727 440 898</a></address>${SOCIAL}</div></div></div>
+<p class="copy">&copy; 2026 IUEA EQUAL Initiative<br>Designed and created by <a href="designer.html" style="color:var(--gold)">Wilondja Mukamba Gabriel (Gabriel Mukamba)</a></p></footer>`);
 
-/**
- * IUEA EQUAL Platform - Core Application Logic
- * Built by: Wilondja Mukamba Gabriel (@gabrielmukamba)
- * Institution: International University of East Africa (IUEA)
- */
+// Forms open the visitor's email app with the message ready to send to the founder
+function wireMail(id,subject){const f=document.getElementById(id);if(!f)return;
+f.addEventListener("submit",e=>{e.preventDefault();const body=[...new FormData(f)].map(([k,v])=>k+": "+v).join("\n");
+location.href=`mailto:${MAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;document.getElementById(id+"Msg").hidden=false})}
+wireMail("projectForm","IUEA EQUAL project submission");wireMail("feedbackForm","IUEA EQUAL student feedback");
 
-const DEFAULT_PROJECTS = [
-  {
-    title: "CivilTech Concrete & Structural Estimator",
-    student: "Wilondja Mukamba Gabriel",
-    faculty: "Engineering",
-    summary: "Web-based structural material and concrete mix calculator designed to improve accuracy and efficiency for civil engineering students and site engineers.",
-    link: "https://github.io"
-  },
-  {
-    title: "AI Engineering Multilingual Translator",
-    student: "Wilondja Mukamba Gabriel",
-    faculty: "Engineering",
-    summary: "AI-powered technical translation tool bridging civil and automotive engineering terminology across English, French, and Swahili.",
-    link: "https://onrender.com"
-  },
-  {
-    title: "Campus Peer Mentorship & Legal Aid Portal",
-    student: "IUEA Student Governance Group",
-    faculty: "Law",
-    summary: "Structured peer guidance platform helping international and local students navigate university policies, rights, and academic procedures.",
-    link: "#transparency"
-  },
-  {
-    title: "East Africa Youth Entrepreneurship Tracker",
-    student: "IUEA Innovation Society",
-    faculty: "Business",
-    summary: "Digital directory connecting student-led startups with campus mentors, pitch competitions, and seed funding opportunities.",
-    link: "#innovation-hub"
-  }
-];
+// Innovation hub. Add your own projects to this list.
+const PROJECTS=[
+{t:"CivilTech Concrete & Structural Estimator",f:"Engineering",s:"Built",by:"Wilondja Mukamba Gabriel",d:"A web-based structural material and concrete mix calculator that helps civil engineering students and site engineers work faster and more accurately.",u:""},
+{t:"AI Engineering Multilingual Translator",f:"Engineering",s:"Built",by:"Wilondja Mukamba Gabriel",d:"An AI-powered tool for technical terms in civil and automotive engineering across English, French and Swahili.",u:""},
+{t:"IUEA Connect",f:"Engineering",s:"Built",by:"Wilondja Mukamba Gabriel",d:"A multi-page platform that unites IUEA students to share ideas, projects and applications.",u:"https://gabrielmukamba.github.io/iuea-connect/"},
+{t:"Campus Peer Mentorship & Legal Aid Portal",f:"Law",s:"Concept",by:"Concept by IUEA EQUAL",d:"An idea for a peer guidance platform that helps international and local students understand university policies, rights and academic procedures.",u:""},
+{t:"East Africa Youth Entrepreneurship Tracker",f:"Business",s:"Concept",by:"Concept by IUEA EQUAL",d:"An idea for a directory connecting student startups with campus mentors, pitch competitions and funding opportunities.",u:""}];
+const n=document.getElementById("nProj");if(n)n.textContent=PROJECTS.length;
+const hub=document.getElementById("hubList");
+if(hub){const F=["All","Engineering","Business","Law"],bar=document.getElementById("hubFilters");let cur="All";
+const draw=()=>{bar.innerHTML=F.map(x=>`<button type="button" class="btn ${x===cur?"alt":"ghost"}" data-f="${x}">${x}</button>`).join("");
+const L=PROJECTS.filter(p=>cur==="All"||p.f===cur);
+hub.innerHTML=L.length?L.map(p=>`<div class="card top"><span class="tag">${p.f}</span><span class="tag">${p.s}</span><h3>${p.t}</h3><p>${p.d}</p><small>By ${p.by}</small>${p.u?`<p><a href="${p.u}" target="_blank" rel="noopener">View project</a></p>`:"<p>Link coming soon</p>"}</div>`).join(""):"<p>No projects here yet. Submit yours below.</p>";
+bar.querySelectorAll("button").forEach(b=>b.onclick=()=>{cur=b.dataset.f;draw()})};draw()}
 
-const STORAGE_KEY = "iuea_equal_projects_v1";
-const FEEDBACK_KEY = "iuea_equal_feedback_v1";
-
-function loadProjects() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-  return saved ? JSON.parse(saved) : DEFAULT_PROJECTS;
-}
-
-function saveProjects(projects) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-}
-
-let projects = loadProjects();
-let activeFilter = "all";
-
-const projectsGrid = document.getElementById("projectsGrid");
-const projectCount = document.getElementById("projectCount");
-
-function renderProjects() {
-  const filtered = activeFilter === "all"
-    ? projects
-    : projects.filter(p => p.faculty === activeFilter);
-
-  projectCount.textContent = projects.length;
-
-  projectsGrid.innerHTML = filtered.map(project => `
-    <article class="project-card">
-      <div>
-        <span class="faculty-tag">${escapeHTML(project.faculty)}</span>
-        <h3>${escapeHTML(project.title)}</h3>
-        <p>${escapeHTML(project.summary)}</p>
-      </div>
-      <div class="project-footer">
-        <span>By <strong>${escapeHTML(project.student)}</strong></span>
-        ${project.link ? `<a href="${escapeHTML(project.link)}" target="_blank" rel="noopener">View &rarr;</a>` : ""}
-      </div>
-    </article>
-  `).join("");
-}
-
-function escapeHTML(str) {
-  const div = document.createElement("div");
-  div.textContent = str;
-  return div.innerHTML;
-}
-
-// Faculty Filter Buttons
-document.querySelectorAll(".filter-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    activeFilter = btn.dataset.filter;
-    renderProjects();
-  });
-});
-
-// Project Submission Modal
-const modal = document.getElementById("projectModal");
-document.getElementById("openSubmitModal").addEventListener("click", () => modal.classList.add("open"));
-document.getElementById("closeSubmitModal").addEventListener("click", () => modal.classList.remove("open"));
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) modal.classList.remove("open");
-});
-
-document.getElementById("projectForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const newProject = {
-    title: document.getElementById("projTitle").value.trim(),
-    student: document.getElementById("projStudent").value.trim(),
-    faculty: document.getElementById("projFaculty").value,
-    summary: document.getElementById("projSummary").value.trim(),
-    link: document.getElementById("projLink").value.trim() || "#innovation-hub"
-  };
-
-  projects.unshift(newProject);
-  saveProjects(projects);
-  renderProjects();
-  e.target.reset();
-  modal.classList.remove("open");
-});
-
-// Constructive Student Feedback Form
-document.getElementById("feedbackForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  const entry = {
-    category: document.getElementById("fbCategory").value,
-    rating: document.getElementById("fbRating").value,
-    message: document.getElementById("fbMessage").value.trim(),
-    submittedAt: new Date().toISOString()
-  };
-
-  const existing = JSON.parse(localStorage.getItem(FEEDBACK_KEY) || "[]");
-  existing.push(entry);
-  localStorage.setItem(FEEDBACK_KEY, JSON.stringify(existing));
-
-  const status = document.getElementById("feedbackStatus");
-  status.textContent = "Thank you. Your constructive feedback has been recorded for the IUEA EQUAL annual review.";
-  e.target.reset();
-});
-
-// Initial Render
-renderProjects();
+// Score calculator for the proposed rubric
+const calc=document.getElementById("calc");
+if(calc){const R=[["Innovation & Problem Solving",30],["Leadership & Communication",25],["Academic & Intellectual Competence",20],["Character & Community Impact",15],["Stage Presence & Presentation",10]];
+calc.innerHTML=R.map(([l,w],i)=>`<div class="row"><label for="r${i}">${l} (${w}%): <b id="v${i}">5</b>/10</label><input id="r${i}" type="range" min="0" max="10" value="5"></div>`).join("")+`<p>Total score: <span class="total" id="tot">50</span> / 100</p>`;
+const up=()=>{let t=0;R.forEach(([l,w],i)=>{const v=+document.getElementById("r"+i).value;document.getElementById("v"+i).textContent=v;t+=w*v/10});document.getElementById("tot").textContent=Math.round(t*10)/10};
+R.forEach((x,i)=>document.getElementById("r"+i).oninput=up)}
