@@ -1,10 +1,19 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Innovation Hub | IUEA EQUAL</title><meta name="description" content="Student software, engineering and leadership projects from IUEA."><link rel="stylesheet" href="style.css"></head><body>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IUEA Student Projects and Innovation Hub | IUEA EQUAL</title>
+<meta name="description" content="Student software and engineering projects from the International University of East Africa, with live demos, source code and Android downloads. Submit your own.">
+<link rel="canonical" href="https://gabrielmukamba.github.io/iuea-equal/innovation.html"><link rel="icon" href="images/iuea-logo.png"><meta name="theme-color" content="#6e1220">
+<meta property="og:type" content="website"><meta property="og:site_name" content="IUEA EQUAL"><meta property="og:title" content="IUEA Student Projects and Innovation Hub | IUEA EQUAL">
+<meta property="og:description" content="Student software and engineering projects from the International University of East Africa. Submit your own."><meta property="og:url" content="https://gabrielmukamba.github.io/iuea-equal/innovation.html">
+<meta property="og:image" content="https://gabrielmukamba.github.io/iuea-equal/images/iuea-logo.png"><meta property="og:image:alt" content="IUEA logo"><meta name="twitter:card" content="summary">
+<link rel="stylesheet" href="style.css"><link rel="stylesheet" href="extra.css"></head><body>
 <section class="page-hero"><div class="wrap"><h1>Innovation Hub</h1><p class="lead">Real applications, tools and initiatives built by IUEA students.</p></div></section>
-<section><div class="wrap"><div class="filters" id="hubFilters"></div><div class="grid" id="hubList"></div></div></section>
-<section id="submit"><div class="wrap"><h2>Submit your project</h2><p>Fill this in and press Send in the email that opens. We will review it and add it to the hub.</p>
-<form class="card" id="projectForm"><input name="Name" placeholder="Your name" required maxlength="80">
-<select name="Faculty"><option>Engineering & Tech</option><option>Business & Management</option><option>Law & Governance</option><option>Other</option></select>
-<input name="Project title" placeholder="Project title" required maxlength="100"><input name="Link" placeholder="Link to your project (optional)" maxlength="200">
-<textarea name="Description" rows="4" placeholder="What does it do and who does it help?" required maxlength="800"></textarea>
-<button class="btn" type="submit">Submit project</button><p id="projectFormMsg" hidden>Your email app should open. Press Send to finish.</p></form></div></section>
-<script src="app.js"></script></body></html>
+<section><div class="wrap"><div class="filters" id="hubFilters"></div><div class="grid" id="hubList"></div>
+<p style="margin-top:18px">APK files install on Android phones only. Your phone may ask you to allow installs from your browser first.</p></div></section>
+<section><div class="wrap"><h2>Submitted by students</h2><div class="grid" id="communityProjects"></div></div></section>
+<section id="submit"><div class="wrap"><h2>Submit your project</h2><p>Share what you have built. Your project appears above after a quick review.</p>
+<form class="card" id="projectForm"><input name="name" placeholder="Your name" required maxlength="80">
+<select name="faculty"><option>Engineering</option><option>Business</option><option>Law</option><option>Science and Technology</option><option>Other</option></select>
+<input name="title" placeholder="Project title" required maxlength="100"><input name="link" type="url" placeholder="Link to your project, starting with https:// (optional)" maxlength="300">
+<textarea name="description" rows="4" placeholder="What does it do and who does it help?" required maxlength="800"></textarea>
+<button class="btn" type="submit">Submit project</button><p class="status" id="projectFormMsg" hidden></p></form></div></section>
+<script src="app.js"></script><script type="module" src="firebase.js"></script></body></html>
