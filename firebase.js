@@ -24,12 +24,12 @@ function submitForm(formId,col,build,okMsg){
     e.preventDefault();
     if(!ready)return say(formId+"Msg",SETUP);
     const btn=f.querySelector("button");btn.disabled=true;
-    try{await addDoc(collection(db,col),{...build(new FormData(f)),approved:false,ts:serverTimestamp()});f.reset();say(formId+"Msg",okMsg)}
+    try{await addDoc(collection(db,col),{...build(new FormData(f)),approved:true,ts:serverTimestamp()});f.reset();say(formId+"Msg",okMsg)}
     catch(err){say(formId+"Msg","Sorry, something went wrong. Please check your entries and try again.")}
     btn.disabled=false})}
 
-submitForm("projectForm","projects",fd=>({name:fd.get("name").trim(),faculty:fd.get("faculty"),title:fd.get("title").trim(),link:safe((fd.get("link")||"").trim()),description:fd.get("description").trim()}),"Thank you! Your project was submitted and will appear here after review.");
-submitForm("feedbackForm","feedback",fd=>({name:(fd.get("name")||"").trim(),role:fd.get("role"),message:fd.get("message").trim()}),"Thank you! Your feedback was submitted and will appear here after review.");
+submitForm("projectForm","projects",fd=>({name:fd.get("name").trim(),faculty:fd.get("faculty"),title:fd.get("title").trim(),link:safe((fd.get("link")||"").trim()),description:fd.get("description").trim()}),"Thank you! Your project has been published.");
+submitForm("feedbackForm","feedback",fd=>({name:(fd.get("name")||"").trim(),role:fd.get("role"),message:fd.get("message").trim()}),"Thank you! Your feedback has been published.");
 
 function liveList(col,boxId,card){
   const box=$(boxId);if(!box)return;
